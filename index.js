@@ -95,8 +95,22 @@ const getTotal = () => {
     return total
 }
 
+const calculateAverageChange = () => {
+    let totalChanges = 0;
+    for (let i = 0; i < finances.length; i++) {
+        if (i == 0) {
+            continue
+        }
+        const change = finances[i][1] - finances[i - 1][1]
+        totalChanges += change;
+    }
+    const average = totalChanges / (finances.length - 1);
+    return average.toFixed(2);
+}
+
 console.log("Financial Analysis");
 console.log("----------------------------");
 console.log(`Total months: ${finances.length}`);
 console.log(`Total: ${getTotal()}`);
+console.log(`Average Change: ${calculateAverageChange()}`);
 
