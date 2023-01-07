@@ -108,9 +108,23 @@ const calculateAverageChange = () => {
     return average.toFixed(2);
 }
 
+const calculateHighestProfit = () => {
+    let highestProfitIndex = 0;
+    let highestProfit = 0;
+    for (let i = 0; i < finances.length; i++) {
+        const profit = finances[i][1];
+        if (profit > highestProfit) {
+            highestProfitIndex = i;
+            highestProfit = profit;
+        }
+    }
+    const highestProfitObject = finances[highestProfitIndex];
+    return `${highestProfitObject[0]} (${highestProfitObject[1]})`;
+}
+
 console.log("Financial Analysis");
 console.log("----------------------------");
 console.log(`Total months: ${finances.length}`);
 console.log(`Total: ${getTotal()}`);
 console.log(`Average Change: ${calculateAverageChange()}`);
-
+console.log(`Greatest Increase in Profits: ${calculateHighestProfit()}`);
