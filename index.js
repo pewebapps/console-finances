@@ -187,10 +187,10 @@ for (let i = 0; i < finances.length; i++) {
 console.log("Financial Analysis");
 console.log("----------------------------");
 console.log(`Total months: ${finances.length}`);
-console.log(`Total: ${totalProfit}`);
+console.log(`Total: $${totalProfit}`);
 
 const average = totalChanges / (finances.length - 1);
-console.log(`Average Change: ${average.toFixed(2)}`);
+console.log(`Average Change: $${average.toFixed(2)}`);
 
 console.log(`Greatest Increase in Profits: ${greatestProfitMonth[0]} ($${greatestProfitMonth[1]})`);
 console.log(`Greatest Decrease in Profits: ${greatestLossMonth[0]} ($${greatestLossMonth[1]})`);
