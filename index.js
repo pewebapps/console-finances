@@ -87,59 +87,110 @@ var finances = [
 ['Feb-2017', 671099]
 ];
 
-const getTotal = () => {
-    let total = 0;
-    for (let i = 0; i < finances.length; i++) {
-        total += finances[i][1];
-    }
-    return total
-}
+/*
 
-const calculateAverageChange = () => {
-    let totalChanges = 0;
-    for (let i = 0; i < finances.length; i++) {
-        if (i == 0) {
-            continue
-        }
-        const change = finances[i][1] - finances[i - 1][1]
+SOLUTION 1: 4N 
+
+// const getTotal = () => {
+//     let total = 0;
+//     for (let i = 0; i < finances.length; i++) {
+//         total += finances[i][1];
+//     }
+//     return total
+// }
+
+// const calculateAverageChange = () => {
+//     let totalChanges = 0;
+//     for (let i = 0; i < finances.length; i++) {
+//         if (i == 0) {
+//             continue
+//         }
+//         const change = finances[i][1] - finances[i - 1][1]
+//         totalChanges += change;
+//     }
+//     const average = totalChanges / (finances.length - 1);
+//     return average.toFixed(2);
+// }
+
+// const calculateHighestProfit = () => {
+//     let highestProfitIndex = 0;
+//     let highestProfit = 0;
+//     for (let i = 0; i < finances.length; i++) {
+//         const profit = finances[i][1];
+//         if (profit > highestProfit) {
+//             highestProfitIndex = i;
+//             highestProfit = profit;
+//         }
+//     }
+//     const highestProfitObject = finances[highestProfitIndex];
+//     return `${highestProfitObject[0]} (${highestProfitObject[1]})`;
+// }
+
+// const calculateHighestLoss = () => {
+//     let highestLossIndex = 0;
+//     let highestLoss = 0;
+//     for (let i = 0; i < finances.length; i++) {
+//         const loss = finances[i][1];
+//         if (loss < highestLoss) {
+//             highestLossIndex = i;
+//             highestLoss = loss;
+//         }
+//     }
+//     const highestLossObject = finances[highestLossIndex];
+//     return `${highestLossObject[0]} (${highestLossObject[1]})`;
+// }
+
+// console.log("Financial Analysis");
+// console.log("----------------------------");
+// console.log(`Total months: ${finances.length}`);
+// console.log(`Total: ${getTotal()}`);
+// console.log(`Average Change: ${calculateAverageChange()}`);
+// console.log(`Greatest Increase in Profits: ${calculateHighestProfit()}`);
+// console.log(`Greatest Decrease in Profits: ${calculateHighestLoss()}`);
+*/
+
+// SOLUTION 2 - 0N
+
+let totalProfit = 0;
+let totalChanges = 0;
+let greatestProfitMonth = [];
+let greatestProfit = 0
+let greatestLossMonth = [];
+let greatestLoss = 0;
+
+for (let i = 0; i < finances.length; i++) {
+    // monthly profit/loss
+    const monthlyRevenue = finances[i][1];
+
+    // total profit
+    totalProfit += monthlyRevenue;
+
+    // total changes
+    if (i != 0) {
+        const change = monthlyRevenue - finances[i - 1][1]
         totalChanges += change;
     }
-    const average = totalChanges / (finances.length - 1);
-    return average.toFixed(2);
-}
 
-const calculateHighestProfit = () => {
-    let highestProfitIndex = 0;
-    let highestProfit = 0;
-    for (let i = 0; i < finances.length; i++) {
-        const profit = finances[i][1];
-        if (profit > highestProfit) {
-            highestProfitIndex = i;
-            highestProfit = profit;
-        }
+    // greatest profit
+    if (monthlyRevenue > greatestProfit) {
+        greatestProfitMonth = finances[i];
+        greatestProfit = monthlyRevenue;
     }
-    const highestProfitObject = finances[highestProfitIndex];
-    return `${highestProfitObject[0]} (${highestProfitObject[1]})`;
-}
 
-const calculateHighestLoss = () => {
-    let highestLossIndex = 0;
-    let highestLoss = 0;
-    for (let i = 0; i < finances.length; i++) {
-        const loss = finances[i][1];
-        if (loss < highestLoss) {
-            highestLossIndex = i;
-            highestLoss = loss;
-        }
+    // greatest loss
+    if (monthlyRevenue < greatestLoss) {
+        greatestLossMonth = finances[i];
+        greatestLoss = monthlyRevenue;
     }
-    const highestLossObject = finances[highestLossIndex];
-    return `${highestLossObject[0]} (${highestLossObject[1]})`;
 }
 
 console.log("Financial Analysis");
 console.log("----------------------------");
 console.log(`Total months: ${finances.length}`);
-console.log(`Total: ${getTotal()}`);
-console.log(`Average Change: ${calculateAverageChange()}`);
-console.log(`Greatest Increase in Profits: ${calculateHighestProfit()}`);
-console.log(`Greatest Decrease in Profits: ${calculateHighestLoss()}`);
+console.log(`Total: ${totalProfit}`);
+
+const average = totalChanges / (finances.length - 1);
+console.log(`Average Change: ${average.toFixed(2)}`);
+
+console.log(`Greatest Increase in Profits: ${greatestProfitMonth[0]} ($${greatestProfitMonth[1]})`);
+console.log(`Greatest Decrease in Profits: ${greatestLossMonth[0]} ($${greatestLossMonth[1]})`);
