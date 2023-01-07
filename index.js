@@ -122,9 +122,24 @@ const calculateHighestProfit = () => {
     return `${highestProfitObject[0]} (${highestProfitObject[1]})`;
 }
 
+const calculateHighestLoss = () => {
+    let highestLossIndex = 0;
+    let highestLoss = 0;
+    for (let i = 0; i < finances.length; i++) {
+        const loss = finances[i][1];
+        if (loss < highestLoss) {
+            highestLossIndex = i;
+            highestLoss = loss;
+        }
+    }
+    const highestLossObject = finances[highestLossIndex];
+    return `${highestLossObject[0]} (${highestLossObject[1]})`;
+}
+
 console.log("Financial Analysis");
 console.log("----------------------------");
 console.log(`Total months: ${finances.length}`);
 console.log(`Total: ${getTotal()}`);
 console.log(`Average Change: ${calculateAverageChange()}`);
 console.log(`Greatest Increase in Profits: ${calculateHighestProfit()}`);
+console.log(`Greatest Decrease in Profits: ${calculateHighestLoss()}`);
